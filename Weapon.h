@@ -7,6 +7,15 @@
 
 #include <iostream>
 
+struct WeaponDamages {
+    const int fist = 1;
+    const int bat = 2;
+    const int slap = 3;
+    const int sword = 4;
+    const int bow = 4;
+    const int gun = 10;
+};
+
 enum class WeaponEnum {
     Fist,
     Bat,

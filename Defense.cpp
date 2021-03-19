@@ -4,7 +4,6 @@
 
 #include <memory>
 #include "Defense.h"
-#include "Damages.h"
 
 Defense::Defense() {
 }

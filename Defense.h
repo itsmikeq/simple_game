@@ -6,6 +6,15 @@
 #define SIMPLE_GAME_DEFENSE_H
 #include <iostream>
 
+struct ShieldDefenses {
+    const int none = 0;
+    const int arms = 1;
+    const int wood = 2;
+    const int bronze = 3;
+    const int steel = 4;
+    const int tungsten = 5;
+};
+
 class Defense {
 public:
     int points = 0;
