@@ -28,7 +28,28 @@ std::string collectInput(){
     return stuff_;
 }
 
-int main() {
+Weapon makeWeapon(WeaponEnum weapon) {
+    switch (weapon) {
+        case WeaponEnum::Fist:
+            return Fist();
+        case WeaponEnum::Bat:
+            return Bat();
+        case WeaponEnum::Slap:
+            return Slap();
+        case WeaponEnum::Sword:
+            return Sword();
+        case WeaponEnum::Bow:
+            return Bow();
+        case WeaponEnum::Gun:
+            return Gun();
+        default:
+            throw;
+    }
+}
+int main(int argc, char *argv[]) {
+    serialize(std::cout, Gun());
+//    return 0;
+
     auto player = Player(10, Bat(), NoneShield());
     auto enemy = Player(10, Fist(), NoneShield());
     Game * g = new Game(player);
@@ -38,28 +59,13 @@ int main() {
         printer("Select your weapon ");
         std::string s = collectInput();
         weapon = weapon_from_str(s);
-        switch (weapon) {
-            case WeaponEnum::Fist:
-                player.equipWeapon(Fist());
-                break;
-            case WeaponEnum::Bat:
-                player.equipWeapon(Bat());
-                break;
-            case WeaponEnum::Slap:
-                player.equipWeapon(Slap());
-                break;
-            case WeaponEnum::Sword:
-                player.equipWeapon(Sword());
-                break;
-            case WeaponEnum::Bow:
-                player.equipWeapon(Bow());
-                break;
-            case WeaponEnum::Gun:
-                player.equipWeapon(Gun());
-                break;
-            default:
-                cout << "That's not a weapon!\n";
+
+        if (weapon == WeaponEnum::Unknown) {
+            cout << "That's not a weapon!\n";
+            continue;
         }
+
+        player.equipWeapon(makeWeapon(weapon));
     } while (weapon == WeaponEnum::Unknown);
 
 //    cout << "selected " << weapon_str(weapon) << endl;

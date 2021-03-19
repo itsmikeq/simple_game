@@ -44,6 +44,10 @@ void Player::equipDefense(const Defense &defense) {
     this->currentDefense = std::make_shared<Defense>(defense);
 }
 
+void Player::serialize(ostream &ostream) {
+    // Need to implement
+}
+
 Archer::Archer(int totalPower, const Weapon &currentWeapon, const Defense &currentDefense)
         : Player(totalPower, currentWeapon, currentDefense) {
     this->equipDefense(ArmShield());

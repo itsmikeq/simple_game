@@ -7,6 +7,8 @@
 
 #include <iostream>
 
+#include "utils.hpp"
+
 struct WeaponDamages {
     const int fist = 1;
     const int bat = 2;
@@ -56,6 +58,10 @@ public:
 class Gun : public Weapon {
 public:
     Gun();
+
+    void serialize(std::ostream &os) const {
+        os << "Hi, I'm a gun!";
+    }
 };
 
 class Sword : public Weapon {

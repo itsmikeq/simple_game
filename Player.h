@@ -23,6 +23,8 @@ public:
     [[nodiscard]] float percentPowerRemaining() const;
     void equipWeapon(const Weapon &weapon);
     void equipDefense(const Defense &defense);
+
+    void serialize(std::ostream &ostream);
 };
 
 class Archer : public Player {
