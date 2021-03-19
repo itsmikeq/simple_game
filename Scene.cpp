@@ -3,5 +3,5 @@
 //
 
 #include "Scene.h"
-class Scene::Scene {
+Scene::Scene(Player &player, Scene &fromScene) : player(&player), fromScene(&fromScene) {
 };

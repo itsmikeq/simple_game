@@ -17,17 +17,11 @@
 
 class Scene {
 public:
-    Player player;
-    Scene *fromScene; // prior scene
+    Scene(Player &player, Scene &fromScene);
 
-//    std::ostream &serialize(std::ostream &os) const override {
-//        player.serialize(os);
-//        // Exposition only. Maybe provide default serialization for things like std::vector and iterators.
-//        for (const auto &scene : scenes) {
-//            scene->serialize(os);
-//        }
-//        return os;
-//    }
+    Player *player;
+    Scene *fromScene; // prior scene
+    Scene *nextScene; // set when we have another scene to go to
 
 private:
     std::vector<std::shared_ptr<Scene>> scenes;

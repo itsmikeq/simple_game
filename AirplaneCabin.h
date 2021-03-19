@@ -9,7 +9,9 @@
 #include "Scene.h"
 
 class AirplaneCabin : public Scene {
+public:
 
+    AirplaneCabin(Player &player, Scene &fromScene);
 };
 
 
