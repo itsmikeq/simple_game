@@ -22,3 +22,15 @@
 - provides an easy way to extract meaning from text
 - Split on words to allow for text that has extra whitespace in it (e.g. "  hi    there").
 - Uses approximate string matching to detect typos and notify the user (e.g. "I don't know that command. Did you mean ...").
+
+
+## TODO
+
+1. Create serializer for scenes
+1. Create inventory
+1. Create scene actions
+1. Create scene paths to next and prior scene
+1. Add details to weapons:
+    1. Bullets / projectiles 
+    1. Damage
+1. Add command line arguments

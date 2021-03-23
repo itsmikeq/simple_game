@@ -16,9 +16,11 @@
 #include <fstream>
 #include <unistd.h>
 #include <typeinfo>
+#include <array>
 
 #include "Player.h"
 #include <pwd.h>
+
 
 
 class Scene {
@@ -30,7 +32,9 @@ public:
     Scene *nextScene; // set when we have another scene to go to
     std::string saveFile = "save_file.dat";
     std::string sceneName;
-    std::filesystem::path saveFilePath;
+    std::string setting;
+
+
 
     void loadFromDisk();
 
@@ -41,9 +45,10 @@ public:
     void setNextScene(Scene scene);
 
 
-private:
     std::vector<std::shared_ptr<Scene>> scenes;
+private:
 
 };
+
 
 #endif //SIMPLE_GAME_SCENE_H

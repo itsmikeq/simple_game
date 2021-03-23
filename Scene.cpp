@@ -17,7 +17,7 @@ namespace fs = std::filesystem;
 //};
 
 Scene::Scene(Player &player) : player(&player) {
-//    auto path = fs::path("simple_game");
+    this->saveFile = ".savefile.dat";
     this->loadFromDisk();
 };
 
@@ -42,11 +42,10 @@ void Scene::loadFromDisk() {
 
 void Scene::saveToDisk() {
     std::cout << "Saving " << this->saveFile << std::endl;
-    std::string path_string{this->saveFilePath.u8string()};
+//    std::string path_string{this->saveFilePath.u8string()};
     std::cout << "PATH: " << this->saveFile << std::endl;
     std::ofstream saveFileStream;
     saveFileStream.open(this->saveFile, std::ios::out | std::ios::binary);
     saveFileStream << "Writing this to a file.\n";
     saveFileStream.close();
 }
-
