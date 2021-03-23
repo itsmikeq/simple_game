@@ -3,5 +3,7 @@
 //
 
 #include "AirplaneCabin.h"
-
-AirplaneCabin::AirplaneCabin(Player &player) : Scene(player) {};
+AirplaneCabin::AirplaneCabin(Player &player) : Scene(player) {
+    this->saveFile = (std::string)"." + __func__ + ".dat";
+    this->sceneName = "Airplane Cabin";
+};
