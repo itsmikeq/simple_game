@@ -6,8 +6,12 @@
 #include <iostream>
 
 struct Test {
+    std::vector<std::string> colors = {"Red", "Blue", "Green", "Yellow"};
+
     std::ostream &serialize(std::ostream &os) const {
-        Serializer::serialize(os, List{"a", "b", "c", List{"1", "2", "3"}});
+        Serializer::serialize(os, Dictionary{
+                {"colors", SerializableObject{colors}}
+        });
         return os;
     }
 };

@@ -64,7 +64,7 @@ public:
     }
 
     /// \overload Serializer::serialize(std::ostream&, std::string_view)
-    static void serialize(std::ostream &os, const std::string& str) {
+    static void serialize(std::ostream &os, const std::string &str) {
         serialize(os, std::string_view{str});
     }
 
@@ -101,16 +101,28 @@ struct List {
     List(const std::initializer_list<SerializableObject> &list) : objects(list) {}
 
     template<typename ...Args>
-    requires (std::is_convertible_v<Args, SerializableObject> && ...)
+    requires(std::is_convertible_v<Args, SerializableObject> &&...)
     explicit List(Args &&...args) {
         objects.emplace_back(std::forward<Args>(args)...);
     }
+
+    template<typename Begin, typename End>
+    List(Begin &&begin, End &&end) : objects(std::forward<Begin>(begin), std::forward<End>(end)) {}
+
+    template<typename Container>
+    requires (requires(Container c) { std::begin(c); std::end(c); })
+    List(Container &&c) : List(std::forward<Container>(c).begin(), std::forward<Container>(c).end()) {}
 
     std::ostream &serialize(std::ostream &os) const;
 };
 
 struct Dictionary {
-    std::unordered_map<std::string, SerializableObject> objects;
+    using key_type = std::string;
+    using value_type = SerializableObject;
+
+    std::unordered_map<key_type, value_type> objects;
+
+    Dictionary(const std::initializer_list<std::pair<const key_type, value_type>> &list) : objects(list) {}
 
     std::ostream &serialize(std::ostream &os) const;
 };
@@ -121,9 +133,8 @@ struct SerializableObject {
 
     SerializableObject(value_type value) : value(std::move(value)) {}
 
-    template<typename T>
-    requires (std::is_convertible_v<T, value_type>)
-    SerializableObject(T &&object) : value(std::forward<T>(object)) {}
+    template<typename T> requires(std::is_convertible_v<T, value_type>)
+    SerializableObject(T && object) : value(std::forward<T>(object)) {}
 
     std::ostream &serialize(std::ostream &os) const;
 };

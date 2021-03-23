@@ -5,16 +5,23 @@
 #include "Serializer.h"
 
 std::ostream &List::serialize(std::ostream &os) const {
-    Serializer::serialize(os, Serializer::Type::List);
+    auto serialize = Serializer::bind(os);
+    serialize(Serializer::Type::List);
     for (const auto &object : objects) {
-        Serializer::serialize(os, object);
+        serialize(object);
     }
-    Serializer::serialize(os, Serializer::Type::End);
+    serialize(Serializer::Type::End);
     return os;
 }
 
 std::ostream &Dictionary::serialize(std::ostream &os) const {
-    // TODO implement dictionary serialization
+    auto serialize = Serializer::bind(os);
+    serialize(Serializer::Type::Dictionary);
+    for (const auto &[key, value] : objects) {
+        serialize(key);
+        serialize(value);
+    }
+    serialize(Serializer::Type::End);
     return os;
 }
 
