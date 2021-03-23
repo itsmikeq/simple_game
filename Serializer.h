@@ -71,15 +71,14 @@ public:
     /// Returns a serialize functor with the passed stream bound to the first argument. This is useful for when you
     /// use the same stream and don't want to pass it into each invocation of serialize.
     /// \code{.cpp}
-    /// Serializer s;
-    /// auto serialize = s.bind(std::cout);
+    /// auto serialize = Serializer::bind(std::cout);
     /// serialize("Hello, world!"); // equivalent to s.serialize(std::cout, "hello world");
     /// \endcode
     /// \param os output stream
     /// \return serialize functor
-    auto bind(std::ostream &os) {
-        return [&os, this]<typename T>(T &&object) {
-            this->serialize(os, std::forward<T>(object));
+    static auto bind(std::ostream &os) {
+        return [&os]<typename T>(T &&object) {
+            Serializer::serialize(os, std::forward<T>(object));
         };
     }
 
@@ -101,6 +100,12 @@ struct List {
 
     List(const std::initializer_list<SerializableObject> &list) : objects(list) {}
 
+    template<typename ...Args>
+    requires (std::is_convertible_v<Args, SerializableObject> && ...)
+    explicit List(Args &&...args) {
+        objects.emplace_back(std::forward<Args>(args)...);
+    }
+
     std::ostream &serialize(std::ostream &os) const;
 };
 
@@ -117,7 +122,7 @@ struct SerializableObject {
     SerializableObject(value_type value) : value(std::move(value)) {}
 
     template<typename T>
-    requires (requires(value_type v){ v.emplace<T>(); })
+    requires (std::is_convertible_v<T, value_type>)
     SerializableObject(T &&object) : value(std::forward<T>(object)) {}
 
     std::ostream &serialize(std::ostream &os) const;
