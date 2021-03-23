@@ -9,6 +9,8 @@
 #include "Scene.h"
 
 class AirplaneHanger : public Scene{
+public:
+    explicit AirplaneHanger(Player &player);
 
 };
 

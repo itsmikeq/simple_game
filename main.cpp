@@ -2,6 +2,8 @@
 #include "Player.h"
 #include "utils.hpp"
 #include "Game.h"
+#include "Scene.h"
+#include "AirplaneHanger.h"
 
 using namespace std;
 
@@ -14,14 +16,13 @@ void printer(T t) {
     cout << t << endl;
 }
 
-template <typename T, typename ...U>
-void printer(T t, U ...u)
-{
+template<typename T, typename ...U>
+void printer(T t, U ...u) {
     cout << t;
     printer(u...);
 }
 
-std::string collectInput(){
+std::string collectInput() {
     string stuff_;
     cin >> stuff_;
     stuff_ = choppa(stuff_, " ");
@@ -46,11 +47,14 @@ Weapon makeWeapon(WeaponEnum weapon) {
             throw;
     }
 }
+
 int main(int argc, char *argv[]) {
     auto player = Player(10, Bat(), NoneShield());
     auto enemy = Player(10, Fist(), NoneShield());
-    Game * g = new Game(player);
-
+    Game *g = new Game(player);
+    AirplaneHanger *s = new AirplaneHanger(player);
+    s->saveToDisk();
+    return 0;
     WeaponEnum weapon;
     do {
         printer("Select your weapon ");

@@ -10,8 +10,7 @@
 
 class AirplaneCabin : public Scene {
 public:
-
-    AirplaneCabin(Player &player, Scene &fromScene);
+    AirplaneCabin(Player &player);
 };
 
 

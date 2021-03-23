@@ -4,4 +4,4 @@
 
 #include "AirplaneCabin.h"
 
-AirplaneCabin::AirplaneCabin(Player &player, Scene &fromScene) : Scene(player, fromScene) {};
+AirplaneCabin::AirplaneCabin(Player &player) : Scene(player) {};
