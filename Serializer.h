@@ -48,19 +48,35 @@ public:
 
     /// Serializes an integer
     /// \param os output stream
-    /// \param n
+    /// \param n integer value
     static void serialize(std::ostream &os, int n) {
         serialize(os, Type::Int);
         serialize(os, asBytes(n));
     }
 
+    /// Serializes a float
+    /// \param os output string
+    /// \param n float value
+    static void serialize(std::ostream &os, float n) {
+        serialize(os, Type::Float);
+        serialize(os, asBytes(n));
+    }
+
     /// Serializes a string
     /// \param os output stream
-    /// \param str
+    /// \param str string value
     static void serialize(std::ostream &os, std::string_view str) {
         serialize(os, Type::String);
         serialize(os, asBytes(str.size()));
         serialize(os, str.data());
+    }
+
+    /// Serializes a bool
+    /// \param os output stream
+    /// \param value bool value
+    static void serialize(std::ostream &os, bool value) {
+        serialize(os, Type::Bool);
+        serialize(os, asBytes(value));
     }
 
     /// \overload Serializer::serialize(std::ostream&, std::string_view)
