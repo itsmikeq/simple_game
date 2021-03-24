@@ -47,9 +47,6 @@ Weapon makeWeapon(WeaponEnum weapon) {
     }
 }
 int main(int argc, char *argv[]) {
-    serialize(std::cout, Gun());
-//    return 0;
-
     auto player = Player(10, Bat(), NoneShield());
     auto enemy = Player(10, Fist(), NoneShield());
     Game * g = new Game(player);
