@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "utils.hpp"
 #include "Game.h"
+#include "Scene.h"
 
 using namespace std;
 
@@ -14,14 +15,13 @@ void printer(T t) {
     cout << t << endl;
 }
 
-template <typename T, typename ...U>
-void printer(T t, U ...u)
-{
+template<typename T, typename ...U>
+void printer(T t, U ...u) {
     cout << t;
     printer(u...);
 }
 
-std::string collectInput(){
+std::string collectInput() {
     string stuff_;
     cin >> stuff_;
     stuff_ = choppa(stuff_, " ");
@@ -46,14 +46,21 @@ Weapon makeWeapon(WeaponEnum weapon) {
             throw;
     }
 }
-int main(int argc, char *argv[]) {
-    serialize(std::cout, Gun());
-//    return 0;
 
+int main(int argc, char *argv[]) {
     auto player = Player(10, Bat(), NoneShield());
     auto enemy = Player(10, Fist(), NoneShield());
-    Game * g = new Game(player);
-
+    Game *g = new Game(player);
+    auto *s = new Scene(player);
+    g->currentScene = s;
+    s->saveToDisk();
+    s->sceneName = "Airplane Hanger";
+    auto blah = SceneQuestionsT{"this is neat", "so is this"};
+    g->setSceneQuestions(blah);
+    for (auto & i : blah){
+        cout << i << endl;
+    }
+    return 0;
     WeaponEnum weapon;
     do {
         printer("Select your weapon ");

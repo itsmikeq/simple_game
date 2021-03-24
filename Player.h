@@ -24,7 +24,7 @@ public:
     void equipWeapon(const Weapon &weapon);
     void equipDefense(const Defense &defense);
 
-    void serialize(std::ostream &ostream);
+    std::ostream &serialize(std::ostream &os);
 };
 
 class Archer : public Player {
